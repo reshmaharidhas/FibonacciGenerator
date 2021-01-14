@@ -1,4 +1,8 @@
 # FibonacciGenerator
+<p align="center">
+  <img src="https://img.shields.io/tokei/lines/github/reshmaharidhas/FibonacciGenerator">
+  <img src="https://img.shields.io/github/repo-size/reshmaharidhas/FibonacciGenerator">
+</p><br>
 Java desktop application to find Nth Fibonacci number
 
 Built using Java Swing
