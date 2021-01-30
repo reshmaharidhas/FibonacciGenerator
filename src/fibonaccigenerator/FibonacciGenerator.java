@@ -1,5 +1,8 @@
 package fibonaccigenerator;
 
+import java.awt.*;
+import java.math.BigInteger;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -19,40 +22,50 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author Reshma
+ * @author Reshma, ChlorinePentoxide
  */
 public class FibonacciGenerator implements ActionListener{
-    JFrame jframe;
-    JTextField tf;
-    JLabel label;
-    JTextArea result;
-    JButton buttonGenerate;
-    JScrollPane scroll;
-    FibonacciGenerator(){
+	
+    private JFrame jframe;
+    private JTextField tf;
+    private JLabel label;
+    private JTextArea result;
+    private JButton buttonGenerate;
+    private JScrollPane scroll;
+	
+    public FibonacciGenerator(){
         jframe = new JFrame();
+
         Image icon = new ImageIcon(this.getClass().getResource("/icons/fibgenicon.png")).getImage();      
+      
         Color c = new Color(204,255,255);
         jframe.getContentPane().setBackground(c);
-        label = new JLabel("Enter number to generate");
+        
+		label = new JLabel("Enter number to generate");
         label.setFont(new Font(Font.SERIF,Font.PLAIN,19));
         label.setBounds(210,50,250,30);
-        tf = new JTextField();
+        
+		tf = new JTextField();
         tf.setToolTipText("Enter number between 1 to 150000");
         tf.setBounds(250,100,100,30);
-        buttonGenerate = new JButton("Generate");
+        
+		buttonGenerate = new JButton("Generate");
         buttonGenerate.setBounds(240,150,120,45);
         buttonGenerate.setBackground(Color.BLACK);
         buttonGenerate.setForeground(Color.white);
         buttonGenerate.setFont(new Font(Font.SERIF,Font.PLAIN,17));
         buttonGenerate.addActionListener(this);
-        result = new JTextArea(10,20);
+        
+		result = new JTextArea(10,20);
         result.setAlignmentX(SwingConstants.CENTER);
         result.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
         result.setLineWrap(true);
         result.setEditable(false);
-        scroll = new JScrollPane(result,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+		scroll = new JScrollPane(result,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBounds(60,240,480,250);
-        jframe.add(scroll);
+        
+		jframe.add(scroll);
         jframe.add(tf);
         jframe.add(label);
         jframe.add(buttonGenerate);
@@ -64,6 +77,7 @@ public class FibonacciGenerator implements ActionListener{
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setResizable(false);
     }
+	
     public BigInteger generateFib(int n){     
         if(n==1){
             return BigInteger.ZERO;
@@ -71,21 +85,18 @@ public class FibonacciGenerator implements ActionListener{
         if(n==2){
             return BigInteger.ONE;
         }
-        BigInteger fnum1=BigInteger.ZERO;
-        BigInteger fnum2=BigInteger.ONE;
-        BigInteger[] fibonaccinums=new BigInteger[n];
-        fibonaccinums[0] = fnum1;
-        fibonaccinums[1] = fnum2;
-        if(n>=2 && n<=150000){
-            for(int i=2;i<n;i++){
-                BigInteger num1 = fibonaccinums[i-1];
-                BigInteger num2 = fibonaccinums[i-2];
-                BigInteger num = num1.add(num2);
-                fibonaccinums[i] = num;
-            }
-        }
-        return fibonaccinums[(int)n-1];
+		BigInteger beforePrev = BigInteger.ZERO;
+		BigInteger prev = BigInteger.ONE;
+		BigInteger current = BigInteger.ZERO;
+		while(n != 0) {
+			current = beforePrev.add(prev);
+			beforePrev = prev;
+			prev = current;
+			n--;
+		}
+        return current;
     }
+	
     public static void main(String[] args) {
         try { 
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel"); 
