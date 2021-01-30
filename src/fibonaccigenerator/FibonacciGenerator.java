@@ -3,10 +3,10 @@ package fibonaccigenerator;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +30,7 @@ public class FibonacciGenerator implements ActionListener{
     JScrollPane scroll;
     FibonacciGenerator(){
         jframe = new JFrame();
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Documents\\NetBeansProjects\\FibonacciGenerator\\src\\icons\\fibgenicon.png");       
+        Image icon = new ImageIcon(this.getClass().getResource("/icons/fibgenicon.png")).getImage();      
         Color c = new Color(204,255,255);
         jframe.getContentPane().setBackground(c);
         label = new JLabel("Enter number to generate");
