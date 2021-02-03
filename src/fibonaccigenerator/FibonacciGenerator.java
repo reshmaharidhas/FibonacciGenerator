@@ -41,31 +41,31 @@ public class FibonacciGenerator implements ActionListener{
         Color c = new Color(204,255,255);
         jframe.getContentPane().setBackground(c);
         
-		label = new JLabel("Enter number to generate");
+	label = new JLabel("Enter number to generate");
         label.setFont(new Font(Font.SERIF,Font.PLAIN,19));
         label.setBounds(210,50,250,30);
         
-		tf = new JTextField();
+	tf = new JTextField();
         tf.setToolTipText("Enter number between 1 to 150000");
         tf.setBounds(250,100,100,30);
         
-		buttonGenerate = new JButton("Generate");
+	buttonGenerate = new JButton("Generate");
         buttonGenerate.setBounds(240,150,120,45);
         buttonGenerate.setBackground(Color.BLACK);
         buttonGenerate.setForeground(Color.white);
         buttonGenerate.setFont(new Font(Font.SERIF,Font.PLAIN,17));
         buttonGenerate.addActionListener(this);
         
-		result = new JTextArea(10,20);
+	result = new JTextArea(10,20);
         result.setAlignmentX(SwingConstants.CENTER);
         result.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
         result.setLineWrap(true);
         result.setEditable(false);
         
-		scroll = new JScrollPane(result,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	scroll = new JScrollPane(result,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBounds(60,240,480,250);
         
-		jframe.add(scroll);
+	jframe.add(scroll);
         jframe.add(tf);
         jframe.add(label);
         jframe.add(buttonGenerate);
@@ -78,24 +78,25 @@ public class FibonacciGenerator implements ActionListener{
         jframe.setResizable(false);
     }
 	
-    public BigInteger generateFib(int n){     
+    public BigInteger fibon(int n){
         if(n==1){
             return BigInteger.ZERO;
         }
         if(n==2){
             return BigInteger.ONE;
         }
-		BigInteger beforePrev = BigInteger.ZERO;
-		BigInteger prev = BigInteger.ONE;
-		BigInteger current = BigInteger.ZERO;
-		while(n != 0) {
-			current = beforePrev.add(prev);
-			beforePrev = prev;
-			prev = current;
-			n--;
-		}
-        return current;
-    }
+        BigInteger fnum1=BigInteger.ZERO;
+        BigInteger fnum2=BigInteger.ONE;
+        BigInteger num=BigInteger.ZERO;
+        if(n>=2 && n<=150000){
+            for(int i=2;i<n;i++){
+                num = fnum1.add(fnum2);
+                fnum1 = fnum2;
+                fnum2 = num;
+            }
+        }
+        return num;
+    }	
 	
     public static void main(String[] args) {
         try { 
@@ -112,13 +113,17 @@ public class FibonacciGenerator implements ActionListener{
         try{
             String text = tf.getText();
             if(!text.equals("")){
-                int index = Integer.parseInt(text);
-                if(index<=0){
+                int inputnum = Integer.parseInt(text);
+                if(inputnum<=0){
                     JOptionPane.showMessageDialog(jframe,"Enter positive number");
                     result.setText("");
                 }
+		else if(inputnum>150000){
+                    JOptionPane.showMessageDialog(jframe,"Enter number within range");
+                    result.setText("");
+                }
                 else{
-                    BigInteger fib = generateFib(index);
+                    BigInteger fib = fibon(inputnum);
                     result.setText(fib.toString());
                 }
             }
