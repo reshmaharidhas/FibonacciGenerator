@@ -7,7 +7,7 @@ Java desktop application to find Nth Fibonacci number
 
 Built using Java Swing
 ## Screenshot
-![screenshot](https://user-images.githubusercontent.com/37250413/104356300-cada6180-5531-11eb-8eb1-95889d7d6814.png)
+![screenshot](https://user-images.githubusercontent.com/37250413/107054225-d7cb3780-67f5-11eb-9de8-8ac002ed97a7.jpg)
 
 ### Programming language
 - Java
